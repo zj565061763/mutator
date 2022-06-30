@@ -40,9 +40,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.btn_cancel -> {
-                lifecycleScope.launch {
-                    _mutator.cancel()
-                }
+                _mutator.cancel()
             }
         }
     }

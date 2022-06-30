@@ -62,7 +62,13 @@ class FMutator {
         }
     }
 
-    suspend fun cancel() {
-        mutate(Int.MAX_VALUE) { }
+    fun cancel() {
+        while (true) {
+            val mutator = currentMutator.get() ?: return
+            mutator.cancel()
+            if (currentMutator.compareAndSet(mutator, null)) {
+                break
+            }
+        }
     }
 }
