@@ -5,27 +5,43 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/btn_1"
+        android:id="@+id/btn_launch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClick"
-        android:text="button_1"
+        android:text="launch"
         android:textAllCaps="false" />
 
     <Button
-        android:id="@+id/btn_2"
+        android:id="@+id/btn_mutate_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClick"
-        android:text="button_2"
+        android:text="mutate_1"
         android:textAllCaps="false" />
 
     <Button
-        android:id="@+id/btn_cancel"
+        android:id="@+id/btn_mutate_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClick"
-        android:text="cancel"
+        android:text="mutate_2"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_cancel_mutate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="cancel mutate"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_cancel_launch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="cancel launch"
         android:textAllCaps="false" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
