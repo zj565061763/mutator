@@ -20,11 +20,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.btn_launch -> {
-                _mutator.launch {
-                    start("launch")
-                }
-            }
             R.id.btn_mutate_1 -> {
                 _mutator.launchMutate {
                     start("mutate_1")
@@ -37,6 +32,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.btn_cancel_mutate -> {
                 _mutator.cancel()
+            }
+
+            R.id.btn_launch -> {
+                _mutator.launch {
+                    start("launch")
+                }
             }
             R.id.btn_cancel_launch -> {
                 _mutator.cancelLaunch()
