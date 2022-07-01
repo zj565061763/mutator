@@ -16,7 +16,7 @@ class FScopeMutator(scope: CoroutineScope = MainScope()) : FMutator() {
         context: CoroutineContext = EmptyCoroutineContext,
         start: CoroutineStart = CoroutineStart.DEFAULT,
         priority: Int = 0,
-        block: suspend () -> Unit,
+        block: suspend CoroutineScope.() -> Unit,
     ): Job {
         return launch(
             context = context,
