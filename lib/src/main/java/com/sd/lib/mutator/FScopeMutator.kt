@@ -29,6 +29,22 @@ class FScopeMutator(scope: CoroutineScope = MainScope()) : FMutator() {
     /**
      * 启动协程
      */
+    fun launchWithLock(
+        context: CoroutineContext = EmptyCoroutineContext,
+        start: CoroutineStart = CoroutineStart.DEFAULT,
+        block: suspend CoroutineScope.() -> Unit,
+    ): Job {
+        return launch(
+            context = context,
+            start = start,
+        ) {
+            withLock { block() }
+        }
+    }
+
+    /**
+     * 启动协程
+     */
     fun launch(
         context: CoroutineContext = EmptyCoroutineContext,
         start: CoroutineStart = CoroutineStart.DEFAULT,
