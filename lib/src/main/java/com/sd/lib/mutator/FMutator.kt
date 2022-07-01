@@ -62,8 +62,8 @@ open class FMutator {
         }
     }
 
-    suspend fun <T> withLock(action: () -> T) {
-        mutex.withLock(action = action)
+    suspend fun <T> withLock(action: suspend () -> T) = mutex.withLock {
+        action()
     }
 
     fun cancel() {
