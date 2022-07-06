@@ -1,11 +1,14 @@
 package com.sd.lib.mutator
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
-class FScopeMutator(scope: CoroutineScope = MainScope()) : FMutator() {
+class FScopeMutator(scope: CoroutineScope) : FMutator() {
     private val _scope = scope
     private val _jobHolder: MutableMap<Job, String> = WeakHashMap()
 
