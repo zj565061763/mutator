@@ -1,4 +1,4 @@
-package com.sd.lib.demo.mutator
+package com.sd.demo.mutator
 
 import org.junit.Test
 

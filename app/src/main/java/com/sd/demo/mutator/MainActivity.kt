@@ -1,17 +1,17 @@
-package com.sd.lib.demo.mutator
+package com.sd.demo.mutator
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import com.sd.lib.demo.mutator.databinding.ActivityMainBinding
+import com.sd.demo.mutator.databinding.ActivityMainBinding
 import com.sd.lib.mutator.FScopeMutator
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val _mutator by lazy { FScopeMutator(lifecycleScope) }
+    private val _mutator by lazy { FScopeMutator(MainScope()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +55,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             throw e
         }
         Log.i(TAG, "$tag delay after")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _mutator.cancel()
     }
 
     companion object {
