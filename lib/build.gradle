@@ -9,12 +9,11 @@ def libArtifactId = "mutator"
 def libVersionName = "1.0.0-beta05"
 
 android {
+    namespace 'com.sd.lib.mutator'
     compileSdk 33
     defaultConfig {
         minSdk 21
         targetSdk 33
-
-        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -30,9 +29,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
-    }
-    packagingOptions {
-        resources.excludes += "DebugProbesKt.bin"
     }
 }
 
