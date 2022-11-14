@@ -47,7 +47,7 @@ open class FMutator {
 
     suspend fun <R> mutate(
         priority: Int = 0,
-        block: suspend () -> R,
+        block: suspend () -> R
     ) = coroutineScope {
         val mutator = Mutator(priority, coroutineContext[Job]!!)
 
@@ -61,6 +61,8 @@ open class FMutator {
             }
         }
     }
+
+    //-------------------- ext --------------------
 
     suspend fun <T> withLock(action: suspend () -> T) = mutex.withLock {
         action()
