@@ -5,43 +5,42 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.sd.demo.mutator.databinding.ActivityMainBinding
-import com.sd.lib.mutator.FScopeMutator
+import com.sd.lib.mutator.FMutator
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
-    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val _mutator by lazy { FScopeMutator(MainScope()) }
+    private val _binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+
+    private val _scope = MainScope()
+    private val _mutator = FMutator()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+        setContentView(_binding.root)
     }
 
     override fun onClick(v: View) {
-        when (v.id) {
-            R.id.btn_mutate_1 -> {
-                _mutator.launchMutate {
-                    start("mutate_1")
+        when (v) {
+            _binding.btnMutate1 -> {
+                _scope.launch {
+                    _mutator.mutate {
+                        start("mutate_1")
+                    }
                 }
             }
-            R.id.btn_mutate_2 -> {
-                _mutator.launchMutate(priority = 1) {
-                    start("mutate_2")
+            _binding.btnMutate2 -> {
+                _scope.launch {
+                    _mutator.mutate(priority = 1) {
+                        start("mutate_2")
+                    }
                 }
             }
-            R.id.btn_cancel_mutate -> {
+            _binding.btnCancelMutate -> {
                 _mutator.cancel()
-            }
-
-            R.id.btn_launch -> {
-                _mutator.launch {
-                    start("launch")
-                }
-            }
-            R.id.btn_cancel_launch -> {
-                _mutator.cancelLaunch()
             }
         }
     }
@@ -63,7 +62,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onDestroy() {
         super.onDestroy()
-        _mutator.cancel()
+        _scope.cancel()
     }
 }
 
