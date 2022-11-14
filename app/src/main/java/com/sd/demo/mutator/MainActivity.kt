@@ -8,6 +8,7 @@ import com.sd.demo.mutator.databinding.ActivityMainBinding
 import com.sd.lib.mutator.FScopeMutator
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
+import java.util.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -46,23 +47,26 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private suspend fun start(tag: String) {
-        Log.i(TAG, "$tag delay before")
+        val uuid = UUID.randomUUID().toString()
+        logMsg { "$tag delay before $uuid" }
+
         try {
             delay(5000)
         } catch (e: Exception) {
-            Log.e(TAG, "$tag delay Exception:$e")
+            logMsg { "$tag delay Exception:$e $uuid" }
             e.printStackTrace()
             throw e
         }
-        Log.i(TAG, "$tag delay after")
+
+        logMsg { "$tag delay after $uuid" }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _mutator.cancel()
     }
+}
 
-    companion object {
-        const val TAG = "MainActivity"
-    }
+fun logMsg(block: () -> String) {
+    Log.i("FMutator-demo", block())
 }
