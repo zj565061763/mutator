@@ -68,7 +68,7 @@ open class FMutator {
         action()
     }
 
-    fun cancelMutator() {
+    fun cancel() {
         while (true) {
             val mutator = currentMutator.get() ?: return
             mutator.cancel()
