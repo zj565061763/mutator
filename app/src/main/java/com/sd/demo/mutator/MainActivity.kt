@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.btn_cancel_mutate -> {
-                _mutator.cancel()
+                _mutator.cancelMutator()
             }
 
             R.id.btn_launch -> {
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onDestroy() {
         super.onDestroy()
-        _mutator.cancel()
+        _mutator.cancelMutator()
     }
 }
 
