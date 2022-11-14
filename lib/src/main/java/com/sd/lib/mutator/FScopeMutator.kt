@@ -53,12 +53,12 @@ class FScopeMutator(scope: CoroutineScope) : FMutator() {
         start: CoroutineStart = CoroutineStart.DEFAULT,
         block: suspend CoroutineScope.() -> Unit,
     ): Job {
-        return _scope.launch(
-            context = context,
-            start = start,
-            block = block,
-        ).also {
-            synchronized(this@FScopeMutator) {
+        synchronized(this@FScopeMutator) {
+            return _scope.launch(
+                context = context,
+                start = start,
+                block = block,
+            ).also {
                 _jobHolder[it] = ""
             }
         }
