@@ -1,22 +1,14 @@
 package com.sd.demo.mutator
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.sd.demo.mutator.databinding.ActivityMainBinding
-import com.sd.lib.mutator.FMutator
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import java.util.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private val _binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-
-    private val _scope = MainScope()
-    private val _mutator = FMutator()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,44 +17,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when (v) {
-            _binding.btnMutate1 -> {
-                _scope.launch {
-                    _mutator.mutate {
-                        start("mutate_1")
-                    }
-                }
-            }
-            _binding.btnMutate2 -> {
-                _scope.launch {
-                    _mutator.mutate(priority = 1) {
-                        start("mutate_2")
-                    }
-                }
-            }
-            _binding.btnCancelMutate -> {
-                _mutator.cancel()
-            }
+            _binding.btnMutator -> startActivity(Intent(this, SampleMutatorActivity::class.java))
+            _binding.btnScope -> startActivity(Intent(this, SampleScopeActivity::class.java))
         }
-    }
-
-    private suspend fun start(tag: String) {
-        val uuid = UUID.randomUUID().toString()
-        logMsg { "$tag delay before $uuid" }
-
-        try {
-            delay(5000)
-        } catch (e: Exception) {
-            logMsg { "$tag delay Exception:$e $uuid" }
-            e.printStackTrace()
-            throw e
-        }
-
-        logMsg { "$tag delay after $uuid" }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _scope.cancel()
     }
 }
 
